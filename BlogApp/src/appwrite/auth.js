@@ -17,14 +17,14 @@ export class AuthService {
         try {
             const userAccount = await this.account.create(ID.unique(), email,password, name);
             if(userAccount) {
-                // another method
+                //call another method
                 return this.login({email, password})
             }
             else {
                 return userAccount
             }
         } catch (error) {
-            console.error(error);
+            console.error("Error in createAccount: ",error);
         }
     }
 
@@ -32,7 +32,7 @@ export class AuthService {
         try {
              return await this.account.createEmailSession(email, password);
         } catch (error) {
-            console.error(error);
+            console.error("Error in login: ",error);
         }
     }
 
