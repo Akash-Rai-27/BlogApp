@@ -1,6 +1,6 @@
 import conf from '../conf/conf.js'
 
-import { Client, Account, ID, Databases, Storage, Query} from 'appwrite';
+import { Client, ID, Databases, Storage, Query} from 'appwrite';
 
 
 export class Service{
@@ -85,7 +85,7 @@ export class Service{
 
     async getPosts(queries = [Query.equal("status", "active")]){
         try {
-            return await this.databases.getDocument(
+            return await this.databases.listDocuments(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
                 queries,
@@ -106,10 +106,29 @@ export class Service{
             )
         } catch (error) {
             console.error("Appwrite service :: bucket service :: fileupload :: error", error)
+            return false
         }
     }
 
-    async 
+    async deleteFile(fileId){
+        try {
+            await this.bucket.deleteFile(
+                conf.appwriteBucketId,
+                fileId
+            )
+            return true
+        } catch (error) {
+            console.error("Appwrite service :: bucket service :: deleteFile :: error", error)
+            return false
+        }
+    }
+
+    getFilePreview(fileId){
+        return this.bucket.getFilePreview(
+            conf.appwriteBucketId,
+            fileId
+        )
+    }
 
 }
 
