@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     status: false,
     userData: null,
+    posts: [],
 }
 
 const authSlice = createSlice({
@@ -17,8 +18,18 @@ const authSlice = createSlice({
         logout: (state)=>{
             state.status = false;
             state.userData = null;
+        },
+
+        addPost : (state, action) => {
+            state.posts.push(action.payload.post)
+        },
+
+        updatePost :(state, action)=>{
+            const index = state.posts.findIndex(post => post.$id === action.payload.post.$id);
+            if (index !== -1) {
+                state.posts[index] = action.payload.post;
+            }
         }
-        
 
         // post here also
 
@@ -26,7 +37,7 @@ const authSlice = createSlice({
 })
 
 
-export const {login, logout} = authSlice.actions;
+export const {login, logout, addPost, updatePost} = authSlice.actions;
 
 export default authSlice.reducer;
 
