@@ -16,9 +16,11 @@ function Login() {
         setError("")
         try {
             const session = await authService.login(data)
+            console.log("this is session ::", session)
             if (session) {
                 const userData = await authService.getCurrentUser()
                 if(userData) dispatch(authLogin(userData));
+                console.log("this is the userData send in redux::",userData)
                 navigate("/")
             }
         } catch (error) {

@@ -13,11 +13,13 @@ function Signup() {
     const {register, handleSubmit} = useForm()
 
     const create = async(data) => {
+        console.log("this is data react hook sends:",data);
         setError("")
         try {
             const userData = await authService.createAccount(data)
             if (userData) {
                 const userData = await authService.getCurrentUser()
+                console.log("this is the userData stored in redux",userData)
                 if(userData) dispatch(login(userData));
                 navigate("/")
             }
@@ -49,7 +51,7 @@ function Signup() {
                 <form onSubmit={handleSubmit(create)}>
                     <div className='space-y-5'>
                         <Input
-                        label="Full Name: "
+                        label="Full Name: " // react-hook-form handles ref internally -- that is no ref passed
                         placeholder="Enter your full name"
                         {...register("name", {
                             required: true,

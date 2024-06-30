@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     status: false,
     userData: null,
-    posts: [],
+    
 }
 
 const authSlice = createSlice({
@@ -12,7 +12,7 @@ const authSlice = createSlice({
     reducers: {
         login: (state, action)=>{
             state.status = true;
-            state.userData = action.payload.userData
+            state.userData = action.payload
         },
 
         logout: (state)=>{
@@ -20,16 +20,16 @@ const authSlice = createSlice({
             state.userData = null;
         },
 
-        addPost : (state, action) => {
-            state.posts.push(action.payload.post)
-        },
+        // addPost : (state, action) => {
+        //     state.posts.push(action.payload.post)
+        // },
 
-        updatePost :(state, action)=>{
-            const index = state.posts.findIndex(post => post.$id === action.payload.post.$id);
-            if (index !== -1) {
-                state.posts[index] = action.payload.post;
-            }
-        }
+        // updatePost :(state, action)=>{
+        //     const index = state.posts.findIndex(post => post.$id === action.payload.post.$id);
+        //     if (index !== -1) {
+        //         state.posts[index] = action.payload.post;
+        //     }
+        // }
 
         // post here also
 
